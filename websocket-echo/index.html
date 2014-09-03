@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset="/>
+        <title>Echo server</title>
+        <style type="text/css" media="screen">
+            .chat {
+                background: #FFF;
+                padding: 20px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -300px;
+                margin-top: -150px;
+                min-height: 150px;
+                width: 600px;
+                border: 1px solid #DFDFDF;
+
+                -webkit-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+                -moz-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+                box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+
+                -webkit-border-radius: 11px;
+                -moz-border-radius: 11px;
+                border-radius: 11px;
+            }
+            .form {
+                position: absolute;
+                bottom: 23px;
+                left: 23px;
+            }
+            input {
+                height: 25px;
+                width: 490px;
+            }
+            button {
+                padding: 8px 30px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                color: #333;
+                background-color: #fff;
+                border-color: #ccc;
+                cursor: pointer;
+                background-image: none;
+            }
+            button:hover {
+                background-color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <script language="javascript" type="text/javascript">
+            "use strict"
+            window.onload = function() {
+                var ws = new WebSocket('ws://localhost:8080', 'echo-protocol')
+
+                document.getElementById('send').addEventListener('click', function(){
+                    ws.send(document.getElementById('input').value)
+                })
+
+                ws.addEventListener("message", function(event) {
+                    document.getElementById('chat-log').innerHTML += '<br>' + event.data
+                })
+            }
+        </script>
+        <div class="chat">
+            <div id="chat-log"></div>
+            <div class='form'>
+                <input id="input" type="text" name="Message" value="Type here"/>
+                <button id="send" type="button">Send</button>
+            </div>
+        </div>
+    </body>
+</html>
