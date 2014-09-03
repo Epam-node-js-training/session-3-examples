@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  script(src = 'https://code.jquery.com/jquery-1.10.2.min.js')
+  script(src = 'https://cdn.socket.io/socket.io-1.0.6.js')
+  script(src = '/javascripts/main.js')
+  #upload-box
+    h2 Upload expamle
+    span#upload-area
+      #select
+        label(for = 'file-input') Select file: 
+        input#file-box(type = 'file')
+        br
+        button#upload-button.button(type = 'button') Upload
+      #progress.hidden
+        span Uploading
+        #progress-container
+          #progress-bar
+        span#percent 0%
+        span#uploaded
+          |  - 
+          span#MB 0
+          |  / 
+          span#size 0
+          |  MB
